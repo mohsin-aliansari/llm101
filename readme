@@ -1,1 +1,5 @@
-readme
+config.ini can be created as follows:
+
+[KEYS]
+OPENAI_API_KEY=<paste open ai key>
+PINECONE_API_KEY=<pinecode api key>
