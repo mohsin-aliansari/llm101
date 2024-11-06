@@ -16,14 +16,7 @@ def get_api_key(source: str):
     api_key = config.get('KEYS',source)
     return api_key
 
-
-def main ():
-    print("showtime now !!!")
-
-    OPENAI_API_KEY = get_api_key("OPENAI_API_KEY")
-    os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
-    
-
+def ask_model(prompt):
     client = OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
     api_key=get_api_key("OPENAI_API_KEY"),
@@ -31,7 +24,7 @@ def main ():
 
     ## model = ChatOpenAI(openai_api_key=OPENAI_API_KEY, model="gpt-3.5-turbo")
 
-    prompt = "Tell me about the capital of France."
+    #prompt = "Tell me something about pakistan"
 
     response = client.chat.completions.create(
            model="gpt-4-turbo",  
@@ -43,8 +36,22 @@ def main ():
     #response.choices[0].message['content']
     response_message = response.choices[0].message.content
 
-    ## response = get_gpt4_response(user_prompt)
-    print(response_message)
+    return response_message
+
+def main ():
+    print("showtime begins !!!")
+
+    # OPENAI_API_KEY = get_api_key("OPENAI_API_KEY")
+    # os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
+    
+    while True: # prompt != "end":
+        prompt = input("How can I help you?") 
+        if prompt != 'end':
+            response = ask_model(prompt)
+            ## response = get_gpt4_response(user_prompt)
+            print(response)
+        else:
+            print ("bye bye")
    
 if __name__ == "__main__":
     main()
